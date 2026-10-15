@@ -8,19 +8,25 @@ body{margin:0;background:var(--bg);color:var(--fg);font:500 14px/1.6 "DM Sans",s
 button{font:inherit;color:inherit;cursor:pointer}
 .sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 
-/* header */
-header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px;padding:12px 22px;border-bottom:3px solid var(--line);background:var(--bg)}
-.logo{display:block;transition:transform .15s}
-.logo img{display:block;height:34px;width:auto}
-.logo:hover{transform:rotate(-2deg) scale(1.04)}
-/* pill group: nav's two auto margins split the free space, so it sits centred with no dead gap */
-nav{display:flex;gap:4px;margin-inline:auto;padding:4px;border:2px solid var(--line);background:var(--card)}
-nav a{text-decoration:none;color:var(--fg);font:800 12px/1 Syne,sans-serif;letter-spacing:.06em;text-transform:uppercase;display:inline-flex;align-items:center;height:44px;padding:0 18px;border:0;background:none;transition:background .15s,color .15s}
-nav a:not(.on):hover{background:var(--pink);color:var(--ink)}
-nav a.on{background:var(--yellow);color:var(--ink)}
-.tools{margin-left:0;display:flex;flex-direction:column;align-items:flex-end;gap:4px}
-.cart{display:flex;align-items:center;gap:6px;border:0;background:none;font:800 16px Syne,sans-serif;padding:0;transition:transform .15s}
-.cart:hover{transform:translateY(-2px)}
+/* header — sticker tabs */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;display:flex;flex-wrap:wrap;align-items:center;gap:14px 22px;padding:14px 22px;border-bottom:3px solid var(--line);background:var(--bg)}
+.logo{display:block;transform:rotate(-2deg);transition:transform .15s}
+.logo img{display:block;height:40px;width:auto}
+.logo:hover{transform:rotate(-3deg) scale(1.05)}
+/* no pill box — nav's two auto margins split the free space, each link is its own tilted sticker */
+nav{display:flex;gap:12px;margin-inline:auto}
+nav a{--t:-2deg;text-decoration:none;color:var(--fg);font:800 12px/1 Syne,sans-serif;letter-spacing:.06em;
+  text-transform:uppercase;display:inline-flex;align-items:center;height:44px;padding:0 18px;
+  border:2px solid var(--line);background:var(--card);box-shadow:3px 3px 0 var(--line);
+  transform:rotate(var(--t));transition:transform .15s,box-shadow .15s,background .15s}
+nav a:nth-child(2){--t:1.5deg}
+nav a:nth-child(3){--t:-1deg}
+nav a:nth-child(4){--t:1deg}
+nav a:not(.on):hover{background:var(--pink);color:var(--ink);transform:translate(-2px,-2px) rotate(0);box-shadow:5px 5px 0 var(--line)}
+nav a.on{background:var(--yellow);color:var(--ink);transform:translate(-2px,-2px) rotate(var(--t));box-shadow:5px 5px 0 var(--line)}
+.tools{display:flex;align-items:flex-end}
+.cart{display:flex;align-items:center;gap:6px;min-height:44px;padding:8px 12px;border:2px solid var(--line);background:var(--cream);color:var(--ink);font:800 16px Syne,sans-serif;box-shadow:3px 3px 0 var(--line);transition:transform .15s,box-shadow .15s}
+.cart:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--line)}
 .soc{display:flex;gap:10px}.soc a{color:var(--fg);display:flex;transition:transform .15s}
 .soc a:hover{transform:translate(-2px,-2px)}
 svg.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
@@ -89,6 +95,26 @@ svg.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke
 .mail{position:absolute;right:18px;bottom:-20px;transform:rotate(-5deg);font:800 14px Syne,sans-serif;letter-spacing:.06em;text-transform:uppercase;padding:6px 14px;min-height:44px;border:2px solid var(--line);background:var(--pink);color:var(--ink);text-decoration:none;transition:transform .15s}
 .mail:hover{transform:rotate(2deg) scale(1.06)}
 
+/* family member card — light sticker, flips with the theme */
+.fcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr));gap:34px 26px;margin-top:34px}
+.fm{display:flex;flex-direction:column;background:var(--card);border:2px solid var(--line);
+  box-shadow:6px 6px 0 var(--line);transition:transform .18s,box-shadow .18s}
+.fm:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 var(--line)}
+.fmh{position:relative;height:190px;overflow:hidden;background-color:var(--c);
+  background-image:radial-gradient(rgba(31,11,11,.16) 1.6px,transparent 1.7px);background-size:16px 16px;
+  border-bottom:2px solid var(--line);display:grid;place-items:center}
+.fmh .mi{width:96px;height:96px}
+.fmr{position:absolute;right:12px;top:14px;transform:rotate(7deg);background:var(--yellow);color:var(--ink);
+  border:2px solid var(--ink);padding:5px 10px;max-width:70%;font:800 11px/1 Syne,sans-serif;
+  letter-spacing:.1em;text-transform:uppercase}
+.fmb{padding:16px;display:flex;flex-direction:column;gap:8px;flex:1}
+.fmb h3{margin:0;font:400 26px/1 "Bagel Fat One",cursive;color:var(--yellow);
+  -webkit-text-stroke:2px var(--ink);paint-order:stroke fill;text-shadow:2px 2px 0 var(--hot)}
+.fmb p{margin:0;font-size:13px;line-height:1.5;flex:1}
+.ftags{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+.ftag{border:2px solid var(--line);background:var(--cream);color:var(--ink);padding:3px 8px;
+  font:800 9px Syne,sans-serif;letter-spacing:.08em;text-transform:uppercase}
+
 /* project detail */
 .dhead{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:22px 0 4px}
 .dhead h2{margin:0;font:800 clamp(26px,4vw,40px)/1.1 Syne,sans-serif;color:var(--fg)}
@@ -137,10 +163,12 @@ footer{border-top:3px solid var(--line);padding:16px 22px;font:700 12px Syne,san
      row and the nav becomes a thumb-reachable bottom tab bar. header has no transform/
      filter, so this stays viewport-anchored. */
   nav{position:fixed;left:0;right:0;bottom:0;z-index:30;margin:0;
-    display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-radius:0;
-    border:2px solid var(--line);border-bottom:0;
+    display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+    background:var(--bg);border-top:3px solid var(--line);
     padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px))}
-  nav a{height:48px;justify-content:center;padding:0 4px;font-size:11px;letter-spacing:.03em;text-align:center}
+  nav a{height:48px;justify-content:center;padding:0 4px;font-size:11px;letter-spacing:.03em;text-align:center;
+    border:0;box-shadow:none;transform:none;background:none}
+  nav a.on{background:var(--yellow);color:var(--ink);box-shadow:none;transform:none}
 
   body{padding-bottom:calc(72px + env(safe-area-inset-bottom,0px))}
   .view{scroll-margin-top:78px}
@@ -150,14 +178,14 @@ footer{border-top:3px solid var(--line);padding:16px 22px;font:700 12px Syne,san
   .right{min-height:300px;order:-1}
   .pg{padding:28px 16px 44px}
   #contact .pg{padding:48px 16px 64px}
-  .cards{grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr));gap:28px 18px}
+  .cards,.fcards{grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr));gap:28px 18px}
   .cform input,.cform textarea{font-size:16px}
   .dnav{flex-direction:column;align-items:stretch}
   .dnav a{display:flex;align-items:center;justify-content:center;min-height:44px}
 }
 /* no container queries needed: every .pt child is absolutely anchored, .pf is flex with a
    min-width:0 label, so the card has no width-sensitive text that can clip */
-@media (hover:none){.logo:hover,.cart:hover,.soc a:hover,.btn:hover,.csoc a:hover,.dnav a:hover,.mail:hover,nav a:not(.on):hover,.pc:hover,.pc:hover .stk,.pc:hover .go{transform:none;box-shadow:none}.go:hover{background:var(--cb-yellow)}}
+@media (hover:none){.logo:hover,.cart:hover,.soc a:hover,.btn:hover,.csoc a:hover,.dnav a:hover,.mail:hover,.pc:hover,.fm:hover,.pc:hover .stk,.pc:hover .go{transform:none;box-shadow:none}nav a:not(.on):hover{transform:rotate(var(--t));box-shadow:none}.go:hover{background:var(--cb-yellow)}}
 @media (prefers-reduced-motion:reduce){
   *{transition:none!important}
   .js .rv{opacity:1!important;transform:none!important}
